@@ -1,40 +1,40 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import './styles.css';
+import React, { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import "./styles.css";
 
 const EditPost = ({ token, post, onPostUpdated }) => {
   let history = useHistory();
   const [postData, setPostData] = useState({
     title: post.title,
-    body: post.body
+    body: post.body,
   });
   const { title, body } = postData;
 
-  const onChange = e => {
+  const onChange = (e) => {
     const { name, value } = e.target;
 
     setPostData({
       ...postData,
-      [name]: value
+      [name]: value,
     });
   };
 
   const update = async () => {
     if (!title || !body) {
-      console.log('Title and body are required');
+      console.log("Title and body are required");
     } else {
       const newPost = {
         title: title,
-        body: body
+        body: body,
       };
 
       try {
         const config = {
           headers: {
-            'Content-Type': 'application/json',
-            'x-auth-token': token
-          }
+            "Content-Type": "application/json",
+            "x-auth-token": token,
+          },
         };
 
         // Create the post
@@ -43,7 +43,7 @@ const EditPost = ({ token, post, onPostUpdated }) => {
 
         // Call the handler and redirect
         onPostUpdated(res.data);
-        history.push('/');
+        history.push("/");
       } catch (error) {
         console.error(`Error creating post: ${error.response.data}`);
       }
@@ -58,14 +58,14 @@ const EditPost = ({ token, post, onPostUpdated }) => {
         type="text"
         placeholder="Title"
         value={title}
-        onChange={e => onChange(e)}
+        onChange={(e) => onChange(e)}
       />
       <textarea
         name="body"
         cols="30"
         rows="10"
         value={body}
-        onChange={e => onChange(e)}
+        onChange={(e) => onChange(e)}
       ></textarea>
       <button onClick={() => update()}>Submit</button>
     </div>
