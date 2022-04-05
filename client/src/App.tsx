@@ -36,7 +36,7 @@ class App extends React.Component {
         }
       };
       axios
-        .get('/api/auth', config)
+        .get('http://localhost:5000/api/auth', config)
         .then(response => {
           localStorage.setItem('user', response.data.name);
           this.setState(
@@ -67,7 +67,7 @@ class App extends React.Component {
         }
       };
       axios
-        .get('/api/posts', config)
+        .get('http://localhost:5000/api/posts', config)
         .then(response => {
           this.setState({
             posts: response.data
@@ -103,7 +103,7 @@ class App extends React.Component {
       };
 
       axios
-        .delete(`/api/posts/${post._id}`, config)
+        .delete(`http://localhost:5000/api/posts/${post._id}`, config)
         .then(response => {
           const newPosts = this.state.posts.filter(p => p._id !== post._id);
           this.setState({
